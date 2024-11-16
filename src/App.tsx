@@ -76,7 +76,9 @@ function App() {
   }, [data, peers]);
 
   return loading ? (
-    <><h1>Loading...</h1></>
+    <>
+      <h1>Loading...</h1>
+    </>
   ) : (
     <>
       <div>
@@ -84,10 +86,9 @@ function App() {
           <img src={dn11Logo} className="logo" alt="DN11 logo" />
         </a>
       </div>
-      <h1>{data?.name}</h1>
-      <div className="peer-line">
-        {`${asn} has peered `}
-        <a href="https://status.dn11.top">{peers || ""}</a>
+      <div className="title">
+        <h1>{data?.name}</h1>
+        <h2>{asn}</h2>
       </div>
       <div
         className="cidr-box"
@@ -99,24 +100,30 @@ function App() {
           </p>
         ))}
       </div>
-      {!data?.contact || (
-        <a
-          className="contact-line"
-          href={data.contact.includes("@") ? "mailto:" + data.contact : "#"}
-        >
-          {
-            <>
-              {data.contact.includes("@") ? (
-                <MdiEmailOutline style={{ margin: ".3rem" }} />
-              ) : (
-                <MingcuteQqLine style={{ margin: ".3rem" }} />
-              )}
-              {data.contact}
-            </>
-          }
-        </a>
-      )}
+      <a className="tail-line" href="https://status.dn11.top">{`${peers} Neighbors`}</a>
+      {data?.contact && <Contact contact={data.contact} />}
     </>
+  );
+}
+
+function Contact(props: { contact: string }) {
+  const { contact } = props;
+  return (
+    <a
+      className="tail-line contact-line"
+      href={contact.includes("@") ? "mailto:" + contact : "#"}
+    >
+      {
+        <>
+          {contact.includes("@") ? (
+            <MdiEmailOutline style={{ margin: ".3rem" }} />
+          ) : (
+            <MingcuteQqLine style={{ margin: ".3rem" }} />
+          )}
+          {contact}
+        </>
+      }
+    </a>
   );
 }
 
