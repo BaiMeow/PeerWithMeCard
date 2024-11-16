@@ -5,30 +5,6 @@ import { useInterval } from "@reactuses/core";
 import { parse } from "yaml";
 import { MingcuteQqLine, MdiEmailOutline } from "./icon";
 
-interface metadata {
-  announcements: {
-    assigned: Array<{
-      prefix: string;
-      asn: string;
-    }>;
-    public: Array<{
-      prefix: string;
-      service: Array<{
-        prefix: string;
-        usage: string;
-        allowedASN: Array<string>;
-      }>;
-    }>;
-    "iplist.RESERVED": Array<string>;
-  };
-  metadata: {
-    [key: string]: {
-      display: string;
-      monitor?: any;
-    };
-  };
-}
-
 interface uptime {
   code: number;
   msg: string;
