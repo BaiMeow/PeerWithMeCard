@@ -62,8 +62,8 @@ a:hover {
 
 .contact-line{
   display: flex;
-  align-items: center;
-  justify-self: center;
+  align-content: center;
+  justify-content: center;
 }
 
 .tail-line{

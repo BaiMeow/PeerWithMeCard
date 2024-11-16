@@ -100,7 +100,10 @@ function App() {
           </p>
         ))}
       </div>
-      <a className="tail-line" href="https://status.dn11.top">{`${peers} Neighbors`}</a>
+      <a
+        className="tail-line"
+        href="https://status.dn11.top"
+      >{`${peers} Neighbors`}</a>
       {data?.contact && <Contact contact={data.contact} />}
     </>
   );
@@ -113,16 +116,12 @@ function Contact(props: { contact: string }) {
       className="tail-line contact-line"
       href={contact.includes("@") ? "mailto:" + contact : "#"}
     >
-      {
-        <>
-          {contact.includes("@") ? (
-            <MdiEmailOutline style={{ margin: ".3rem" }} />
-          ) : (
-            <MingcuteQqLine style={{ margin: ".3rem" }} />
-          )}
-          {contact}
-        </>
-      }
+      {contact.includes("@") ? (
+        <MdiEmailOutline style={{ margin: ".3rem" }} />
+      ) : (
+        <MingcuteQqLine style={{ margin: ".3rem" }} />
+      )}
+      {contact}
     </a>
   );
 }
