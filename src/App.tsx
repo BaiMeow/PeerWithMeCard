@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     fetch(
-      `https://raw.githubusercontent.com/dn-11/registry/refs/heads/main/as/${asn}.yml`
+      `https://raw.gitmirror.com/dn-11/registry/refs/heads/main/as/${asn}.yml`
     )
       .then((r) => r.text())
       .then((r) => {
