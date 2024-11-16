@@ -1,0 +1,64 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+
+.cidr-box{
+  margin: 20px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cidr{
+  background-color: gray;
+  width: fit-content;
+  padding: .5rem;
+  border-radius: 5px;
+  will-change: filter;
+  transition: filter 300ms;
+  margin: 8px 4px;
+}
+
+.cidr:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.contact-line{
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.peer-line{
+  display: inline-block;
+}
