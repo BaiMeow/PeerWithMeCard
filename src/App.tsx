@@ -92,7 +92,9 @@ function App() {
       </div>
       <div
         className="cidr-box"
-        onClick={() => (location.href = "https://status.dn11.top/#ospf/" + asn)}
+        onClick={() =>
+          (location.href = `https://status.dn11.top/#/ospf/${asn}`)
+        }
       >
         {data?.cidrs.map((cidr) => (
           <p key={cidr} className="cidr">
@@ -102,7 +104,7 @@ function App() {
       </div>
       <a
         className="tail-line"
-        href="https://status.dn11.top"
+        href={`https://status.dn11.top/#/bgp/${asn}`}
       >{`${peers} Neighbors`}</a>
       {data?.contact && <Contact contact={data.contact} />}
     </>
