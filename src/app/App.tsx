@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import dn11Logo from "./assets/dn11.png";
 import "./App.css";
 import { useInterval } from "@reactuses/core";
-import { parse } from "yaml";
-import { MingcuteQqLine, MdiEmailOutline } from "./icon";
-
+import { MingcuteQqLine, MdiEmailOutline } from "../icon";
+import logo from "./logo.png";
+import { ghraw } from "./ghraw";
 interface uptime {
   code: number;
   msg: string;
@@ -20,36 +19,28 @@ interface uptime {
   };
 }
 
+export type Data = {
+  asn: string;
+  name: string;
+  cidrs: string[];
+  contact: string;
+};
+
 function App() {
   const asn = new URL(document.URL).searchParams.get("asn");
   if (!asn) {
     alert("no asn");
     return;
   }
-  const [data, setData] = useState<{
-    name: string;
-    cidrs: string[];
-    contact: string;
-  } | null>();
 
   const [peers, setPeers] = useState<number | null>();
-
   const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<Data | null>(null);
 
   useEffect(() => {
-    fetch(
-      `https://raw.gitmirror.com/dn-11/registry/refs/heads/main/as/${asn}.yml`
-    )
-      .then((r) => r.text())
-      .then((r) => {
-        const data = parse(r);
-        console.log(data);
-        setData({
-          name: data.name,
-          cidrs: data.ip,
-          contact: data.contact,
-        });
-      });
+    ghraw(asn).then((d) => {
+      setData(d);
+    });
   }, [asn]);
 
   useInterval(
@@ -83,12 +74,12 @@ function App() {
     <>
       <div>
         <a href="https://dn11.top" target="_blank">
-          <img src={dn11Logo} className="logo" alt="DN11 logo" />
+          <img src={logo.src} className="logo" alt="DN11 logo" />
         </a>
       </div>
       <div className="title">
         <h1>{data?.name}</h1>
-        <h2>{asn}</h2>
+        <h2>{data?.asn}</h2>
       </div>
       <div
         className="cidr-box"
