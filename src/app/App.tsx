@@ -4,6 +4,8 @@ import { useInterval } from "@reactuses/core";
 import { MingcuteQqLine, MdiEmailOutline } from "../icon";
 import logo from "./logo.png";
 import { ghraw } from "./ghraw";
+import Image from "next/image";
+
 interface uptime {
   code: number;
   msg: string;
@@ -27,20 +29,23 @@ export type Data = {
 };
 
 function App() {
-  const asn = new URL(document.URL).searchParams.get("asn");
-  if (!asn) {
-    alert("no asn");
-    return;
-  }
-
-  const [peers, setPeers] = useState<number | null>();
-  const [loading, setLoading] = useState(true);
   const [data, setData] = useState<Data | null>(null);
+  const [monitorData, setMonitorData] = useState<uptime>();
+  const asn = new URL(document.URL).searchParams.get("asn");
+
+  const peers = monitorData?.data.link.reduce(
+    (p, c) => p + (c.dst == asn || c.src == asn ? 1 : 0),
+    0
+  );
+
+  const loading = !(data && peers);
 
   useEffect(() => {
-    ghraw(asn).then((d) => {
-      setData(d);
-    });
+    if (asn) {
+      ghraw(asn).then((d) => {
+        setData(d);
+      });
+    }
   }, [asn]);
 
   useInterval(
@@ -48,12 +53,7 @@ function App() {
       fetch("https://monitor.dn11.baimeow.cn/api/bgp")
         .then((a) => a.json())
         .then((a: uptime) => {
-          setPeers(
-            a.data.link.reduce(
-              (p, c) => p + (c.dst == asn || c.src == asn ? 1 : 0),
-              0
-            )
-          );
+          setMonitorData(a);
         });
     },
     60 * 1000,
@@ -61,10 +61,6 @@ function App() {
       immediate: true,
     }
   );
-
-  useEffect(() => {
-    setLoading(!(data && peers));
-  }, [data, peers]);
 
   return loading ? (
     <>
@@ -74,7 +70,11 @@ function App() {
     <>
       <div>
         <a href="https://dn11.top" target="_blank">
-          <img src={logo.src} className="logo" alt="DN11 logo" />
+          <Image
+            src={logo}
+            className="logo"
+            alt="DN11 logo"
+          />
         </a>
       </div>
       <div className="title">
