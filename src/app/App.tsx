@@ -5,6 +5,7 @@ import { MingcuteQqLine, MdiEmailOutline } from "../icon";
 import logo from "./logo.png";
 import { ghraw } from "./ghraw";
 import Image from "next/image";
+import { useSearchParams } from 'next/navigation'
 
 interface uptime {
   code: number;
@@ -31,8 +32,8 @@ export type Data = {
 function App() {
   const [data, setData] = useState<Data | null>(null);
   const [monitorData, setMonitorData] = useState<uptime>();
-  const asn = new URL(document.URL).searchParams.get("asn");
-
+  const searchs = useSearchParams()
+  const asn = searchs.get("asn")
   const peers = monitorData?.data.link.reduce(
     (p, c) => p + (c.dst == asn || c.src == asn ? 1 : 0),
     0
