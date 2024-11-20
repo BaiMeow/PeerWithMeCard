@@ -39,7 +39,7 @@ function App() {
     0
   );
 
-  const loading = !(data && peers);
+  const loading = !(data && monitorData);
 
   useEffect(() => {
     if (asn) {
