@@ -51,7 +51,7 @@ function App() {
 
   useInterval(
     () => {
-      fetch("https://monitor.dn11.baimeow.cn/api/bgp")
+      fetch("https://monitor.dn11.baimeow.cn/api/bgp/DN11")
         .then((a) => a.json())
         .then((a: uptime) => {
           setMonitorData(a);
